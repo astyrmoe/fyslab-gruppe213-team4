@@ -1,8 +1,8 @@
-# Notes
+# Journal fra lab 2 (11. feb)
 
 Notater som hjelper oss til å skrive bra rapport senere.
 
-## Ang hopp og valg av punkter under lab 2 (11. feb)
+## Ang hopp og valg av punkter
 
 Vi var beskymret en stund for at ballen ville gjøre et lite hopp.
 Da vi regnet ut N(x) fant vi ut at ballen ville forlate planet en stund (N<0).
