@@ -49,6 +49,16 @@ Python: `lab3.py`
 Måledata i `målinger/*.csv`
 Sluttfartavlesninger i `sluttfarter.txt`
 
+**Ball:**
+Gjennomsnitt: 1.2459086605596414
+Standardavvik: 4.575187967652956
+Standardfeil: 1.446801470118011
+
+**Ring:**
+Gjennomsnitt: 0.8090217008781936
+Standardavvik: 4.929877258398597
+Standardfeil: 1.558964072160602
+
 ## Usikkerhetsanalyse
 
 **TODO**
