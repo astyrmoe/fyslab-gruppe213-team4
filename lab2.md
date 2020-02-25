@@ -10,4 +10,8 @@ Løsning ble å justere noen av punktene slik at N akkurat ville være >0 i det 
 
 Gamle punkter: `[0.262 0.194 0.219 0.142 0.075 0.131 0.093 0.146]`
 
-Nye punkter: `?`
+Nye punkter: `[0.262 0.194 0.219 0.142 0.075 0.131 0.093 0.146]`
+
+## Metode
+
+Python: `lab2.py`

@@ -25,10 +25,30 @@ Ring: 5 cm i ytre diameter, ringens tykkelse er 3 mm, 4.3 cm er indre diameter, 
 
 Vi gjennomførte 10 forsøk med hver gjenstand. For å få til litt variasjon i fremgangsmåten valgte Anna og Aleksander å slippe gjennstandene halvparten av gangene hver.
 
+**Utstyr:**
+- Bane
+- Kule
+- Ring
+- Tommerstokk
+- Vater
+- Vekt
+- 2x målestokk
+- Teip
+- Kamerastativ og -mobil
+- Støttering under oppsett :)
+
 ## Tracker
 
 Vi opplevde problemer med å importere videofiler inn i Tracker. Ser ut som om det var noe med .mov filene laget av iPhone som var problemet, men gikk fint etter vi konverterte dem til mp4 videoer via `ffmpeg -i /path/video.mov /path/video.mp4`
 
 Vi puttet så videoene inn i tracker. La til et "Mass Poin" på objektet, brukte auto-tracker og fikk ut en tabell etterpå. Vi har lagt ved alle videoene og tabellene produsert av tracker under `/målinger`.
 
-**TODO Usikkerhet**
+## Databehandling
+
+Python: `lab3.py`
+Måledata i `målinger/*.csv`
+Sluttfartavlesninger i `sluttfarter.txt`
+
+## Usikkerhetsanalyse
+
+**TODO**
