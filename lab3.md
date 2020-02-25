@@ -1,4 +1,4 @@
-# Journal fra økt 3
+# Journal fra lab 3 (25. feb)
 
 ## Oppsett
 
