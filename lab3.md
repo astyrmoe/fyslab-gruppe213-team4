@@ -1,4 +1,4 @@
-# Økt 3
+# Journal fra økt 3
 
 ## Oppsett
 
