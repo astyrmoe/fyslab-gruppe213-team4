@@ -11,7 +11,7 @@ Da målestokkens plassering ifht oppsettet bød på problemer, valgte vi å mål
 
 Vi satte så på plass kameraet vårt i fotostativet.
 
-Vi teipet også på to målestokker for å forhindre at ting veltet. __TODO Whaaaaa__
+Vi teipet også på to målestokker til oppsettet for referanse.
 
 **Vekt:**
 Svart ball: 30.0 g
