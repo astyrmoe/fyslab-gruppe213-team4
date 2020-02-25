@@ -47,7 +47,6 @@ Vi puttet så videoene inn i tracker. La til et "Mass Poin" på objektet, brukte
 
 Python: `lab3.py`
 Måledata i `målinger/*.csv`
-Sluttfartavlesninger i `sluttfarter.txt`
 
 **Ball:**
 Gjennomsnitt: 1.2459086605596414
@@ -60,5 +59,8 @@ Standardavvik: 4.929877258398597
 Standardfeil: 1.558964072160602
 
 ## Usikkerhetsanalyse
+
+- Pixel for pixel i tracker
+- Frame rate
 
 **TODO**
