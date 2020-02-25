@@ -15,7 +15,7 @@ Vi teipet også på to målestokker til oppsettet for referanse.
 
 **Vekt:**
 Svart ball: 30.0 g
-Ring: 13.0 g
+Ring: 13.2 g
 *Usikkerhet: +/- 0.1 g*
 
 **Dimensjoner:**
