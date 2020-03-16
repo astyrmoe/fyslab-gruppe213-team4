@@ -3,6 +3,25 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.interpolate import CubicSpline
+from sys import argv
+
+headless = False
+saveFile = True
+ball = False
+
+for arg in argv[1:]:
+    if "=" in argv:
+        key, value = arg.split("=", 2)
+        if "headless".startswith(key.lower()):
+            headless = value[0] in ["t", "1", "y"]
+        if "savefile".startswith(key.lower()):
+            saveFile = value[0] in ["t", "1", "y"]
+        if "ball".startswith(key.lower()):
+            ball = value[0] in ["t", "1", "y"]
+
+print(f"[*] headless = {headless}")
+print(f"[*] saveFile = {saveFile}")
+print(f"[*] ball = {ball}")
 
 # -------------------------------------------------
 # Innstillinger:
@@ -20,16 +39,24 @@ y_feste = np.asarray([0.270, 0.230, 0.155, 0.090, 0.100, 0.160, 0.130, 0.150])
 # --------------------
 # Type objekt:
 # c = 1/2                       # kompakt skive
-c = 2/5                         # kompakt kule
-# c = (1 + r**2 / R**2)/2        # skive, r = indre radius, R = ytre radius
+if ball:
+    c = 2/5                     # kompakt kule
+else:
+    r = 0.0215                  # vår målte indre radius
+    R = 0.025                   # vår målte ytre radius
+    c = (1 + r**2 / R**2)/2     # ring, r = indre radius, R = ytre radius
 # --------------------
 
 # --------------------
 # Masse:
-# Vekt i PDF
-M = 0.100
-# Vår målte vekt av kule
-# M = 0.030
+# Vekt i oppgave PDF
+# M = 0.100
+if ball:
+    # Vår målte vekt av kule
+    M = 0.030
+else:
+    # Vår målte vekt av ring
+    M = 0.0132
 # --------------------
 
 # -------------------------------------------------
@@ -108,7 +135,7 @@ def plot(x, y, show=True, *args, **kw):
     plt.plot(x, y, *args, **kw)
     plt.plot(x[::200], y[::200], '*', label='festepunkter')
     plt.legend()
-    if show:
+    if show and not headless:
         plt.show()
 
 
@@ -207,3 +234,13 @@ print(f'Bunnpunktet (x, y) = ({bunnpunkt_n}mm, {bunnpunkt_y}mm) nås etter {roun
 
 fig('Hastighet som funksjon av tid', 'v', 'm/s', 't', 's')
 plot(t_x, v_x_mean)
+
+if saveFile:
+    if ball:
+        path = "analyse/ball.numeric.csv"
+    else:
+        path = "analyse/ring.numeric.csv"
+    with open(path, 'w') as f:
+        for t, tx, ty in zip(t_x, x, y):
+            f.write(f'{t},{tx},{ty}\n')
+        print(f'Done writing {path}')
