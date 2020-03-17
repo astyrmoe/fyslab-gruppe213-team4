@@ -10,14 +10,14 @@ saveFile = True
 ball = False
 
 for arg in argv[1:]:
-    if "=" in argv:
+    if "=" in arg:
         key, value = arg.split("=", 2)
         if "headless".startswith(key.lower()):
-            headless = value[0] in ["t", "1", "y"]
+            headless = value[0].lower() in ["t", "1", "y"]
         if "savefile".startswith(key.lower()):
-            saveFile = value[0] in ["t", "1", "y"]
+            saveFile = value[0].lower() in ["t", "1", "y"]
         if "ball".startswith(key.lower()):
-            ball = value[0] in ["t", "1", "y"]
+            ball = value[0].lower() in ["t", "1", "y"]
 
 print(f"[*] headless = {headless}")
 print(f"[*] saveFile = {saveFile}")
@@ -42,8 +42,8 @@ y_feste = np.asarray([0.270, 0.230, 0.155, 0.090, 0.100, 0.160, 0.130, 0.150])
 if ball:
     c = 2/5                     # kompakt kule
 else:
-    r = 0.0215                  # vår målte indre radius
-    R = 0.025                   # vår målte ytre radius
+    r = 0.043 / 2               # vår målte indre radius
+    R = 0.050 / 2               # vår målte ytre radius
     c = (1 + r**2 / R**2)/2     # ring, r = indre radius, R = ytre radius
 # --------------------
 
@@ -53,7 +53,7 @@ else:
 # M = 0.100
 if ball:
     # Vår målte vekt av kule
-    M = 0.030
+    M = 0.0300
 else:
     # Vår målte vekt av ring
     M = 0.0132
@@ -93,7 +93,7 @@ beta_deg = np.degrees(beta)     # beta i grader/degrees
 k = d2y / (1 + (dy**2))**(3 / 2)
 
 # v = hastighet i hvert punkt
-v = np.sqrt((2 * g * (y[0] - y)) / (1 + c))
+v = np.sqrt((2 * g * (y[0] - y)) / (1 + c))  # 2 gjeldende siffre
 
 # a = sentripedalakselerasjon
 a = v**2 * k
@@ -122,10 +122,14 @@ t_x = np.cumsum(t_delta)
 # ---------------------------------------------------
 # Plotting:
 
+filename = None
+
 
 def fig(title, y, y_unit, x='x', x_unit='m'):
+    global filename
+    filename = title
     plt.figure(title, figsize=(12, 6))
-    plt.title(title)
+    # plt.title(title)
     plt.xlabel(f"${x}$ [{x_unit}]", fontsize=20)
     plt.ylabel(f"${y}$ [{y_unit}]", fontsize=20)
     plt.grid()
@@ -135,8 +139,15 @@ def plot(x, y, show=True, *args, **kw):
     plt.plot(x, y, *args, **kw)
     plt.plot(x[::200], y[::200], '*', label='festepunkter')
     plt.legend()
-    if show and not headless:
-        plt.show()
+    if show:
+        if not headless:
+            plt.show()
+        elif saveFile:
+            global filename
+            filename = filename.lower().replace(" ", "-")
+            path = f'fig/{filename}.png'
+            plt.savefig(path, dpi=300)
+            print(f'Saved file {path}')
 
 
 orig_round = round
@@ -194,7 +205,7 @@ print(f'Maksimal hastighet oppnås ved x = {np.argmax(v) / 1000}m')
 print(f'Maksimal fart = {round(np.max(v), 2)} m/s')
 print(f'Laveste punkt, y({np.argmin(y)}mm) = {round(np.min(y) * 1000)}mm')
 
-fig('Objektets fartsgraf', 'v', 'm/s')
+fig(f'{"Ballens" if ball else "Ringens"} fartsgraf', 'v', 'm/s')
 plot(x, v)
 
 # - - -
@@ -203,7 +214,7 @@ print()
 
 print(f'Laveste normalkraft: {round(np.min(N), 2)}N')
 print(f'Største normalkraft: {round(np.max(N), 2)}N')
-fig('Normalkraft', 'N', 'N')
+fig(f'Normalkraft for {"ballen" if ball else "ringen"}', 'N', 'N')
 plot(x, N)
 
 # - - -
@@ -212,7 +223,7 @@ print()
 
 print(f'Forholdet mellom friksjonskraften f og normalkraften N overstiger ikke verdien {round(np.max(fN), 2)}')
 
-fig('Forholdet mellom friksjonskraft og normalkraft', '|f/N|', '')
+fig(f'Forholdet mellom friksjonskraft og normalkraft for {"ballen" if ball else "ringen"}', '|f/N|', '')
 plot(x, fN)
 
 # - - -
@@ -221,7 +232,7 @@ print()
 
 print(f'Hele reisen tok ca {round(t_x[-1], 2)} sekunder')
 
-fig('Horisontal posisjon som funksjon av tid', 'x', 'm', 't', 's')
+fig(f'Horisontal posisjon som funksjon av tid for {"ballen" if ball else "ringen"}', 'x', 'm', 't', 's')
 plot(t_x, x[1:])
 
 # - - -
@@ -232,7 +243,7 @@ bunnpunkt_n = np.argmin(y)
 bunnpunkt_y = round(y[bunnpunkt_n] * 1000)
 print(f'Bunnpunktet (x, y) = ({bunnpunkt_n}mm, {bunnpunkt_y}mm) nås etter {round(t_x[bunnpunkt_n], 2)} sekunder')
 
-fig('Hastighet som funksjon av tid', 'v', 'm/s', 't', 's')
+fig(f'Hastighet som funksjon av tid for {"ballen" if ball else "ringen"}', 'v', 'm/s', 't', 's')
 plot(t_x, v_x_mean)
 
 if saveFile:
