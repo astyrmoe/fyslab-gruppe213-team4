@@ -23,9 +23,9 @@ data = list(map(float, data))
 
 gjennomsnitt = sum(data)/observations
 
-SEE=0
+SEE = 0
 for i in range(observations):
-    SEE+=(i-gjennomsnitt)**2
+    SEE += (data[i]-gjennomsnitt)**2
 
 standardavvik = np.sqrt(1/(observations-1)*SEE)
 standardfeil = standardavvik / np.sqrt(observations)
